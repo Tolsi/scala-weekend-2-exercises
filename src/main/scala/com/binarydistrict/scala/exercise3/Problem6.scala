@@ -1,0 +1,15 @@
+package com.binarydistrict.scala.exercise3
+
+object Problem6 {
+  /*
+    Дано предложение.
+    Заменить группы пробелов одиночными, крайние пробелы удалить.
+    Все слова перевести в нижний регистр, первые буквы сделать заглавными.
+    Используйте StringBuilder и if-ы.
+   */
+  def replace(str: String): String = ???
+
+  def main(args: Array[String]): Unit = {
+    println(replace("  a    b   b           cccc   "))
+  }
+}
