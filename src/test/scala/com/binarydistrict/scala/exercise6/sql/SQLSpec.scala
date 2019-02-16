@@ -1,4 +1,4 @@
-package com.binarydistrict.scala.exerice6.sql
+package com.binarydistrict.scala.exercise6.sql
 
 import com.binarydistrict.scala.exercise6.sql.SQL
 import com.binarydistrict.scala.exercise6.sql.SQL.VideoInfo
