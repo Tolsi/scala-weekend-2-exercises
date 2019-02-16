@@ -8,7 +8,7 @@ object Problem1 {
     Массив чисел читать из консоли, разделенные пробелами.
     Пример: для 1 4 5 1 1 3 ответ 4.
    */
-  def differentCount(array: Array[Int]): Int = ???
+  def differentCount(array: Array[Int]): Int = array.distinct.length
 
   def main(args: Array[String]): Unit = {
     println(differentCount(StdIn.readLine().split(" ").map(_.toInt)))

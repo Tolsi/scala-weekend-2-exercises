@@ -18,7 +18,9 @@ object Problem3 {
     Дан файл  с логинами и паролями.
     Найдите топ10 самых популярных паролей.
    */
-  def top10passwords(credentials: Seq[Credential]): Seq[String] = ???
+  def top10passwords(credentials: Seq[Credential]): Seq[String] = {
+    credentials.groupBy(_.password).mapValues(_.size).toSeq.sortBy(-_._2).take(10).map(_._1)
+  }
 
   def main(args: Array[String]): Unit = {
     val lines = Source.fromInputStream(getClass.getResourceAsStream("/exercise3/problem3.txt")).getLines().toList

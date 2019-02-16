@@ -10,7 +10,19 @@ object Problem2 {
     Итаче верните само число
     Бросить исключение IllegalArgumentException если n < 1
   */
-  def fizzBuzzUntil(n: Int): Seq[String] = ???
+  def fizzBuzzUntil(n: Int): Seq[String] = {
+    require(n >= 1)
+    for {
+      i <- 0 until n
+    } yield {
+      i match {
+        case i if i % 15 == 0 => "fizzbuzz"
+        case i if i % 5 == 0 => "buzz"
+        case i if i % 3 == 0 => "fizz"
+        case i => i.toString
+      }
+    }
+  }
 
   def main(args: Array[String]): Unit = {
     println(fizzBuzzUntil(100).mkString(" "))

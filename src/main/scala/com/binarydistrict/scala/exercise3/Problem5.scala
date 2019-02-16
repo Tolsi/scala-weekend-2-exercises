@@ -6,5 +6,5 @@ object Problem5 {
     Заменить группы пробелов одиночными, крайние пробелы удалить.
     Используйте регулярные выражения и trim.
    */
-  def replace(str: String): String = ???
+  def replace(str: String): String = str.trim.replaceAll(" +", " ")
 }
