@@ -1,0 +1,2 @@
+src/main/resources/exercise6/sql/RUvideos.csv filter=lfs diff=lfs merge=lfs -text
+src/main/resources/exercise6/mongo/winemag-data-130k-v2.json filter=lfs diff=lfs merge=lfs -text
