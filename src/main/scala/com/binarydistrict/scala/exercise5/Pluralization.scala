@@ -6,10 +6,12 @@ object Pluralization {
    */
   def pluralizeProgrammer(n: Int): String = {
     s"$n программист${
-      if (n % 10 == 1) {
+      if ((11 to 14).contains(n % 100)) {
+        "ов"
+      } else if (n % 10 == 1) {
         ""
       } else if (Set(2, 3, 4).contains(n % 10)) {
-        "a"
+        "а"
       } else {
         "ов"
       }
@@ -17,6 +19,6 @@ object Pluralization {
   }
 
   def main(args: Array[String]): Unit = {
-    println(pluralizeProgrammer(18))
+    println(pluralizeProgrammer(211))
   }
 }
