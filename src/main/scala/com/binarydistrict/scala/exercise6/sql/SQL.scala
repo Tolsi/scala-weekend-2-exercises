@@ -63,15 +63,29 @@ object SQL {
       sql"select * from videos".map(rs => VideoInfoSQL.read(rs)).list.apply()
     }
 
-    def countVideosInEachCategory()(implicit session: DBSession = AutoSession): Map[String, Int] = ???
+    def countVideosInEachCategory()(implicit session: DBSession = AutoSession): Map[String, Int] = {
+      sql"""
+         select c.category_name, count(*) from videos as v left join category as c on v.category_id = c.category_id group by c.category_name;
+         """.map(rs => (rs.string(1), rs.int(2))).list().apply().toMap
+    }
 
-    def countLikesEachCategory()(implicit session: DBSession = AutoSession): Map[String, Int] = ???
+    def countLikesEachCategory()(implicit session: DBSession = AutoSession): Map[String, Int] = {
+      sql"""
+         select c.category_name, sum(likes) from videos as v left join category as c on v.category_id = c.category_id group by c.category_name;
+         """.map(rs => (rs.string(1), rs.int(2))).list().apply().toMap
+    }
 
-    def mostLiked(limit: Int)(implicit session: DBSession = AutoSession): List[VideoInfo] = ???
+    def mostLiked(limit: Int)(implicit session: DBSession = AutoSession): List[VideoInfo] = {
+      sql"""
+         select v.* from videos as v order by v.likes DESC limit $limit;
+         """.map(VideoInfoSQL.read).list().apply()
+    }
 
   }
 
-  def mostViewedCopyOfEachVideo(videos: Seq[VideoInfo]): Seq[VideoInfo] = ???
+  def mostViewedCopyOfEachVideo(videos: Seq[VideoInfo]): Seq[VideoInfo] = {
+    videos.groupBy(_.videoId).mapValues(_.maxBy(_.views)).values.toSeq
+  }
 
   def initDb()(implicit session: DBSession = AutoSession): Unit = {
     val videosStrings = CSVReader.open(getClass.getResource("/exercise6/sql/RUvideos.csv").getFile).all()
@@ -146,7 +160,7 @@ object SQL {
       initDb()
     })
 
-    val res = VideoInfoSQL.countVideosInEachCategory()
+    val res = VideoInfoSQL.mostLiked(10)
     println(res)
   }
 }
